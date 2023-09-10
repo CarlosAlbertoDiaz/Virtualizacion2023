@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Blog Personal - Diaz Carlos</title>
+</head>
+<body>
+    <header>
+        <h1>Blog Personal de Carlos Diaz</h1>
+    </header>
+    <main>
+        <section class="personal-info">
+            <h2>Datos personales</h2>
+            <p><strong>Nombre y Apellido:</strong> Carlos Diaz</p>
+            <p><strong>DNI:</strong> 33818888</p>
+            <p><strong>Legajo:</strong> 33463</p>
+            <p><strong>Fecha de Nacimiento:</strong> 02 de Diciembre de 1988</p>
+        </section>
+        <section class="profile-image">
+            <h2>Imagen Personal</h2>
+            <img src="perfil.jpg" alt="Imagen personal">
+        </section>
+        
+        <section class="alumnos-data">
+            <h2>Datos de Alumnos</h2>
+            <table id="alumnos-table">
+                <tr>
+                    <th>legajo</th>
+                    <th>apellido</th> 
+                    <th>nombre</th> 
+
+                </tr>
+
+                <?php
+
+                $servername = "192.168.77.220";
+                $username = "carlos";
+                $password = "1234";
+                $database = "prueba";
+                $port = 3306;
+
+                $mysqli = new mysqli($servername, $username, $password, $database, $port);
+                if ($mysqli->connect_error) {
+                    die("Conexion fallida: " . $mysqli -> connect_error);
+                }
+                $query = "SELECT * FROM alumnos";
+                $result = $mysqli->query($query);
+
+                while ($row = $result -> fetch_assoc()) {
+                    echo "<tr>
+                    <td>" . $row["legajo"] . "</td>
+                    <td>" . $row["apellido"] . "</td>
+                    <td>" . $row["nombre"] . "</td>
+                    </tr>";
+                }
+
+            ?>
+                <!-- Aqui se cargaran los datos de los alumnos desde la base de datos -->
+            </table>
+
+        </section>        
+        <section class="pdf-link">
+            <h2>Informe TPF</h2>
+            <p>Haz clic en el boton de abajo para acceder al informe del TPF:</p>
+            <a href="pdf.pdf" class="read-button">Leer Informe</a>
+        </section>
+    </main>
+    <footer>
+        <p>2023 Carlos Diaz - Blog Personal</p>
+    </footer>
+</body>
+</html>
